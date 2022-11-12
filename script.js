@@ -24,28 +24,73 @@ window.onload = () => { // once window loaded
 
 let playerXIcon = "fa-solid fa-x"; // font awesome cross icon
 let playerOIcon = "fa-solid fa-o"; // font awesome circle icon
+let playerSign = "X"; // suppose player will be X
 
 // user click function
 function clickedBox(element) {
-    console.log(element);
     if(players.classList.contains("player")){ // if player element contains .player
+        playerSign="O"; // if player will be O then we'll change the sign
         element.innerHTML = `<i class="${playerOIcon}"></i>`; // adding circle icon tag inside user clicked element
         players.classList.add("active");
+        // if player select O then we'll change the playerSign value to O
+        playerSign = "O";
+        element.setAttribute("id", playerSign);
     }else {
         element.innerHTML = `<i class="${playerXIcon}"></i>`; // adding cross icon tag inside user clicked element
         players.classList.add("active");
+        element.setAttribute("id", playerSign);
     }
+    selectWinner(); // calling the winner function
+    players.style.pointerEvents = "none"; // once user select then user can't select any other box 
     element.style.pointerEvents = "none"; // once user select any box then that box can't be selected again
+    let randomDelayTime = ((Math.random() * 1000) + 200).toFixed(); // generating random time delay so bot will delay randomly choosing a box
+    setTimeout(() => {
+        bot(); // calling bot function
+    }, randomDelayTime); // passing random delay time
 }
 
 // bot click function
 function bot(){
+    // first change the playerSign.. so if user has X value in id then bot will have O
+    playerSign = "O"
     let array = []; // creating empty array... we'll store unselected box index in this array
     for (let i = 0; i < allBox.length; i++) {
         if(allBox[i].childElementCount == 0) { // if span has no child element
             array.push(i); // inserting unclicked or unselected boxes inside array means that span has no children
-            console.log(i + " ", "has no children");
         }
     }
-    console.log(array);
+    let randomBox = array[Math.floor(Math.random() * array.length)]; // getting random index from array so bot will select random unselected box
+    if(array.length > 0){
+        if(players.classList.contains("player")){ // if player element contains .player
+            allBox[randomBox].innerHTML = `<i class="${playerXIcon}"></i>`; // adding cross icon tag inside user clicked element
+            players.classList.remove("active");
+            // if user us O then the bx id value will be X
+            playerSign = "X";
+            allBox[randomBox].setAttribute("id", playerSign);
+        }else {
+            allBox[randomBox].innerHTML = `<i class="${playerOIcon}"></i>`; // adding circle icon tag inside user clicked element
+            players.classList.remove("active");
+            allBox[randomBox].setAttribute("id", playerSign);
+        }
+        selectWinner(); // calling the winner function
+    }
+    allBox[randomBox].style.pointerEvents = "none"; // once bot selects any box then user can't click that same box
+    playerSign = "X"; // passing the x value
+}
+
+// winner function
+function getClass(idname){ 
+    return document.querySelector(".box" + idname).id // returning id name
+}
+
+function checkClass(val1, val2, val3, sign){
+    if(getClass(val1) == sign && getClass(val2) == sign && getClass(val3) == sign){
+        return true;
+    }
+}
+
+function selectWinner(){ // if one combination matches then select winner
+    if(checkClass(1, 2, 3, playerSign) || checkClass(4, 5, 6, playerSign) || checkClass(7, 8, 9, playerSign) || checkClass(1, 4, 7, playerSign) || checkClass(2, 5, 8, playerSign) || checkClass(3, 6, 9, playerSign) || checkClass(1, 5, 9, playerSign) || checkClass(3, 5, 7, playerSign)){
+        console.log(playerSign + " " + "is the winner");
+    }
 }
