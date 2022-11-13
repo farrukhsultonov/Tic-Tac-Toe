@@ -13,7 +13,7 @@ Do you love challenging yourself? This game tests your intelligence. It's you ag
   </tr>
   </table>
   
-  #### After choosing your game, your in-action good luck!
+  #### After choosing your game, your in-action. Good luck!
   <table>
   <tr>
     <td> <img src="/images/initial.png" alt="Initial Page"> </td>
