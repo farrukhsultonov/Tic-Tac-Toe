@@ -3,7 +3,10 @@ selectBtnX = selectBox.querySelector(".playerX"),
 selectBtnO = selectBox.querySelector(".playerO"),
 playBoard = document.querySelector(".play-board"),
 allBox = document.querySelectorAll("section span"),
-players = document.querySelector(".players");
+players = document.querySelector(".players"),
+resultBox = document.querySelector(".result-box"),
+wonText = document.querySelector(".won-text"),
+replayBtn = resultBox.querySelector("button")
 
 window.onload = () => { // once window loaded
     for (let i = 0; i < allBox.length; i++) { // add onclick attribute in all available section's span
@@ -25,6 +28,7 @@ window.onload = () => { // once window loaded
 let playerXIcon = "fa-solid fa-x"; // font awesome cross icon
 let playerOIcon = "fa-solid fa-o"; // font awesome circle icon
 let playerSign = "X"; // suppose player will be X
+let runBot = true;
 
 // user click function
 function clickedBox(element) {
@@ -41,17 +45,18 @@ function clickedBox(element) {
         element.setAttribute("id", playerSign);
     }
     selectWinner(); // calling the winner function
-    players.style.pointerEvents = "none"; // once user select then user can't select any other box 
+    playBoard.style.pointerEvents = "none"; // once user select then user can't select any other box 
     element.style.pointerEvents = "none"; // once user select any box then that box can't be selected again
     let randomDelayTime = ((Math.random() * 1000) + 200).toFixed(); // generating random time delay so bot will delay randomly choosing a box
     setTimeout(() => {
-        bot(); // calling bot function
+        bot(runBot); // calling bot function
     }, randomDelayTime); // passing random delay time
 }
 
 // bot click function
-function bot(){
-    // first change the playerSign.. so if user has X value in id then bot will have O
+function bot(runBot){
+    if(runBot){ // if runbot is true then run the following codes
+           // first change the playerSign.. so if user has X value in id then bot will have O
     playerSign = "O"
     let array = []; // creating empty array... we'll store unselected box index in this array
     for (let i = 0; i < allBox.length; i++) {
@@ -75,7 +80,9 @@ function bot(){
         selectWinner(); // calling the winner function
     }
     allBox[randomBox].style.pointerEvents = "none"; // once bot selects any box then user can't click that same box
+    playBoard.style.pointerEvents = "auto";
     playerSign = "X"; // passing the x value
+    }
 }
 
 // winner function
@@ -90,7 +97,48 @@ function checkClass(val1, val2, val3, sign){
 }
 
 function selectWinner(){ // if one combination matches then select winner
-    if(checkClass(1, 2, 3, playerSign) || checkClass(4, 5, 6, playerSign) || checkClass(7, 8, 9, playerSign) || checkClass(1, 4, 7, playerSign) || checkClass(2, 5, 8, playerSign) || checkClass(3, 6, 9, playerSign) || checkClass(1, 5, 9, playerSign) || checkClass(3, 5, 7, playerSign)){
-        console.log(playerSign + " " + "is the winner");
+    if(checkClass(1, 2, 3, playerSign) 
+        || checkClass(4, 5, 6, playerSign) 
+        || checkClass(7, 8, 9, playerSign) 
+        || checkClass(1, 4, 7, playerSign) 
+        || checkClass(2, 5, 8, playerSign) 
+        || checkClass(3, 6, 9, playerSign) 
+        || checkClass(1, 5, 9, playerSign) 
+        || checkClass(3, 5, 7, playerSign)){
+        // once match won by someone stop the bot
+        runBot = false;
+        bot(runBot);
+        setTimeout(() => { // delay show result box
+        playBoard.classList.remove("show");
+        resultBox.classList.add("show");
+        }, 700); // 700ms delay
+        
+        wonText.innerHTML = `Player <p>${playerSign}</p> won the game!`;
+    }else {
+        // if its a match
+        // first check all id. if all span has id and no one won the game then its draw
+        if(getClass(1) != "" 
+            && getClass(2) != "" 
+            && getClass(3) != "" 
+            && getClass(4) != "" 
+            && getClass(5) != "" 
+            && getClass(6) != "" 
+            && getClass(7) != "" 
+            && getClass(8) != "" 
+            && getClass(9) != ""){
+        runBot = false;
+        bot(runBot);
+        setTimeout(() => { // delay show result box
+        playBoard.classList.remove("show");
+        resultBox.classList.add("show");
+        }, 700); // 700ms delay
+        
+        wonText.innerHTML = `😯 Its a draw!`;
+        }
     }
+}
+
+// Restart/Replay
+replayBtn.onclick = () => {
+    window.location.reload(); // reload game
 }
