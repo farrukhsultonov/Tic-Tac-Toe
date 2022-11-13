@@ -4,7 +4,7 @@
 Do you love challenging yourself? This game tests your intelligence. It's you against the computer 😲! You have to beat the computer in a tic tac toe game to win!
 
 
-## Click <a href="https://farrukhsultonov.github.io/Tic-Tac-Toe/" target="_blank">here</a>) to play the game.
+## Click <a href="https://farrukhsultonov.github.io/Tic-Tac-Toe/" target="_blank">here</a> to play the game.
 
 ## Instruction
 
