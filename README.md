@@ -4,6 +4,8 @@
 Do you love challenging yourself? This game tests your intelligence. It's you against the computer 😲! You have to beat the computer in a tic tac toe game to win!
 
 
+## Click [here](https://farrukhsultonov.github.io/Tic-Tac-Toe/) to play the game.
+
 ## Instruction
 
 #### Choose your player!
@@ -50,5 +52,5 @@ Do you love challenging yourself? This game tests your intelligence. It's you ag
 
 
 ##Unsolved Goals
-* Be able to give the option to both play against the AI or play against a player. 
+* Be able to give the option to both, play against the AI or play against a player. 
 * For a more thrilling and challenging experience add a timer. 
