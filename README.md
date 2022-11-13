@@ -24,7 +24,7 @@ Do you love challenging yourself? This game tests your intelligence. It's you ag
  #### Win Scenarios. Either AI or you will be a winner. Or the game can be a draw!
  <table>
   <tr>
-    <td> <img src="/image/winner.png" alt="Winner Page"> </td>
+    <td> <img src="/images/winner.png" alt="Winner Page"> </td>
     <td> <img src="/images/draw.png" alt="Draw Page"> </td>
   </tr>
 </table>
