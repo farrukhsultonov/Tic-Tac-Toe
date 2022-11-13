@@ -45,7 +45,7 @@ Do you love challenging yourself? This game tests your intelligence. It's you ag
 * As a user, I would like to be able to replay the game.
 
 ## Wireframe
-<img src="/public/image/Project_2 wireframe.png" alt="Wireframe">
+<img src="/images/Wireframe.png" alt="Wireframe">
 
 
 
